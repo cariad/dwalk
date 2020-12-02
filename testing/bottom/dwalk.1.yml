@@ -1,0 +1,22 @@
+# All other files describe a different favourite_colour; this one will win.
+favourite_colour: purple
+
+# No other file describes this property.
+is_bottom_1: true
+
+# All other files add to this dictionary.
+side_count:
+  triangle: 3
+
+alphabet:
+  # "a" is added in this file.
+  a: alpha
+
+  # "b" is overridden in this file.
+  b: bravo
+
+# Lists are not merged; this one takes precedence.
+shopping_list:
+  - atari
+  - bismuth
+  - cookies

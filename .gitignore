@@ -1,0 +1,10 @@
+*.egg-info
+*_cache
+__*__
+.DS_Store
+.coverage
+.vscode
+build
+dist
+htmlcov
+typing-coverage.xml

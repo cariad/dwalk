@@ -1,0 +1,22 @@
+# "dwalk.1.yml" takes precedence over this.
+favourite_colour: yellow
+
+# No other file describes this property.
+is_bottom_2: true
+
+# All other files add to this dictionary.
+side_count:
+  square: 4
+
+alphabet:
+  # "b" is added in this file and overridden by "dwalk.1.yml".
+  b: booboo
+
+  # "c" is overridden in this file.
+  c: charlie
+
+# Lists are not merged; "dwalk.1.yml" takes precedence over this.
+shopping_list:
+  - dog food
+  - entropy
+  - fangs
