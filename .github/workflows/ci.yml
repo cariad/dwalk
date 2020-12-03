@@ -8,50 +8,66 @@ jobs:
   build:
     container: cariad/ci:1.0.0
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version:
-          - "3.8"
-          - "3.9"
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Create Python virtual environment
-        run: pipenv --python ${{ matrix.python-version }}
 
       - name: Sync dependencies
         run: pipenv sync --dev
 
       - name: Lint
-        run: ./lint.sh
+        run: pipenv run ./lint.sh
 
       - name: Test
-        run: ./test.sh
+        run: pipenv run ./test.sh
 
       - name: Version
         run: echo "${GITHUB_REF##*/}" > dwalk/VERSION
 
       - name: Build
-        run: ./build.sh
-
-      - name: CLI test
-        run: |
-          pip install "dist/$(ls dist/*.whl)"
-
-          dwalk --version | tee version.tmp
-          grep -qF "${GITHUB_REF##*/}" version.tmp
-
-          cd testing/bottom
-          dwalk --filenames dwalk.2.yml dwalk.1.yml
+        run: pipenv run ./build.sh
 
       - name: Archive distributable
-        if: ${{ matrix.python-version }} == "3.9"
         uses: actions/upload-artifact@v2
         with:
           name: distributable
           path: dist
           retention-days: 1
+
+  cli_test:
+    name: CLI test (Python ${{ matrix.python-version }})
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version:
+          - "3.8"
+          - "3.9"
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Download build distributable
+        uses: actions/download-artifact@v2
+        with:
+          name: distributable
+
+      - name: Install distributable
+        run: pip install "$(ls *.whl)"
+
+      - name: Assert version
+        run: |
+          dwalk --version | tee version.tmp
+          grep -qF "${GITHUB_REF##*/}" version.tmp
+
+      - name: Assert
+        run: |
+          dwalk --directory testing/bottom --filenames dwalk.2.yml dwalk.1.yml > actual
+          diff testing/expect.txt actual
 
   publish:
     if: startsWith(github.ref, 'refs/tags')
@@ -70,7 +86,7 @@ jobs:
           ls -al dist/
 
       - name: Publish
-        uses: pypa/gh-action-pypi-publish@master
+        uses: pypa/gh-action-pypi-publish@v1.4.1
         with:
           user: __token__
           password: ${{ secrets.PYPI_TOKEN }}
