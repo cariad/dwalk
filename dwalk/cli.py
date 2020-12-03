@@ -34,9 +34,9 @@ class CLI:
         self.arg_parser.add_argument("--filenames", nargs="+")
         self.arg_parser.add_argument("--directory")
         self.arg_parser.add_argument(
-            "--include-src",
+            "--include-meta",
             action="store_true",
-            help="inclue file source keys",
+            help="include meta data",
         )
         self.arg_parser.add_argument("--log-level", default="INFO")
         self.args = self.arg_parser.parse_args(args)
@@ -54,7 +54,7 @@ class CLI:
             result = discover(
                 filenames=self.args.filenames,
                 directory=Path(self.args.directory) if self.args.directory else None,
-                include_src=self.args.include_src,
+                include_meta=self.args.include_meta,
             )
             print(dumps(result, sort_keys=True, indent=2))
             return 0

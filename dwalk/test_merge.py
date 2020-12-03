@@ -10,7 +10,12 @@ from dwalk.merge import merge
     [
         ({}, {}, None, {}),
         ({"a": "alpha"}, {}, None, {"a": "alpha"}),
-        ({"a": "alpha"}, {}, "foo.yml", {"__a:dwalk:src__": "foo.yml", "a": "alpha"}),
+        (
+            {"a": "alpha"},
+            {},
+            "foo.yml",
+            {"__dwalk__": {"a": {"src": "foo.yml"}}, "a": "alpha"},
+        ),
         ({}, {"a": "alpha"}, None, {"a": "alpha"}),
         ({}, {"a": "alpha"}, "foo.yml", {"a": "alpha"}),
         ({"a": "alpha"}, {"a": "alfa"}, None, {"a": "alpha"}),
@@ -27,7 +32,13 @@ from dwalk.merge import merge
             {"d": {"c": "charlie"}},
             {"d": {"d": "delta"}},
             "foo.txt",
-            {"d": {"__c:dwalk:src__": "foo.txt", "c": "charlie", "d": "delta"}},
+            {
+                "d": {
+                    "__dwalk__": {"c": {"src": "foo.txt"}},
+                    "c": "charlie",
+                    "d": "delta",
+                }
+            },
         ),
     ],
 )

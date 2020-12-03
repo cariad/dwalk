@@ -11,24 +11,24 @@ from dwalk.merge import merge
 def discover(
     filenames: List[str],
     directory: Optional[Path] = None,
-    include_src: bool = False,
+    include_meta: bool = False,
 ) -> Dict[Any, Any]:
     """
     Discovers and merges dictionaries.
 
     Args:
-        directory:   Directory to walk to. Default is the working directory.
+        directory:    Directory to walk to. Default is the working directory.
 
-        filenames:   Files to merge if found in each directory.
+        filenames:    Files to merge if found in each directory.
 
-                     Order is important. The content of files at the end of the
-                     list take precedence over files at the beginning.
+                      Order is important. The content of files at the end of the
+                      list take precedence over files at the beginning.
 
-                     For example a merge between ["2.yml", "1.yml"] would
-                     prioritise values in "1.yml" over "2.yml".
+                      For example a merge between ["2.yml", "1.yml"] would
+                      prioritise values in "1.yml" over "2.yml".
 
-        include_src: If `True`, keys named `__KEY:dwalk:src__` will be added to
-                     describe the source file of each value. Default is `False`.
+        include_meta: If `True`, keys named `__dwalk__` will be added to
+                      describe the metadata of each value. Default is `False`.
 
     Returns:
         Merged dictionary.
@@ -51,7 +51,7 @@ def discover(
                     logger.debug("Reading and merging: %s", path)
                     merge(
                         from_dict=safe_load(stream),
-                        from_src=str(path) if include_src else None,
+                        from_src=str(path) if include_meta else None,
                         to_dict=result,
                     )
             except FileNotFoundError:

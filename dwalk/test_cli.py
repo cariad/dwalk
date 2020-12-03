@@ -6,6 +6,7 @@ from dwalk.cli import CLI
 
 
 def test_args() -> None:
+    assert not CLI().args.include_meta
     assert not CLI().args.version
 
 

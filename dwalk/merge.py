@@ -1,5 +1,5 @@
 from copy import deepcopy
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 
 def merge(
@@ -24,10 +24,24 @@ def merge(
         if key not in to_dict or not isinstance(from_dict[key], dict):
             to_dict[key] = deepcopy(from_dict[key])
             if from_src:
-                to_dict[f"__{key}:dwalk:src__"] = from_src
+                add_metadata(to_dict=to_dict, key=key, src=from_src)
         else:
             merge(
                 from_dict=from_dict[key],
                 from_src=from_src,
                 to_dict=to_dict[key],
             )
+
+
+def add_metadata(to_dict: Dict[Any, Any], key: str, src: str) -> None:
+    set_key(to_dict=to_dict, path=["__dwalk__", key, "src"], value=src)
+
+
+def set_key(to_dict: Dict[Any, Any], path: List[str], value: Any) -> None:
+    parent = to_dict
+    for index, key in enumerate(path):
+        if index == len(path) - 1:
+            parent[key] = value
+        elif key not in parent:
+            parent[key] = {}
+        parent = parent[key]
