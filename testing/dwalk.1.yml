@@ -1,0 +1,16 @@
+# "/top*" takes precedence over this.
+favourite_colour: green
+
+# No other file describes this property.
+is_top_1: true
+
+# All other files add to this dictionary.
+side_count:
+  pentagon: 5
+
+alphabet:
+  # "c" is added in this file and overridden by "top/dwalk.2.yml".
+  c: clown
+
+  # "d" is overridden in this file.
+  d: delta

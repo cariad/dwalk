@@ -1,0 +1,13 @@
+# "dwalk.1.yml" takes precedence over this.
+favourite_colour: blue
+
+# No other file describes this property.
+is_top_2: true
+
+# All other files add to this dictionary.
+side_count:
+  hexagon: 6
+
+alphabet:
+  # "d" is added in this file and overridden by "dwalk.1.yml".
+  d: doofus
