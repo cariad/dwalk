@@ -150,41 +150,28 @@ dwalk --directory example/game --filenames foo.yml foo.user.yml
 }
 ```
 
-Pass the optional `--include-meta` flag to see where each value came from:
+## Package
 
-```json
-{
-  "__dwalk__": {
-    "accessibility": {
-      "src": "/Users/cariad/code/dwalk/example/foo.user.yml"
-    },
-    "prompts": {
-      "src": "/Users/cariad/code/dwalk/example/foo.yml"
-    },
-    "requires": {
-      "src": "/Users/cariad/code/dwalk/example/game/foo.yml"
-    },
-    "theme": {
-      "src": "/Users/cariad/code/dwalk/example/game/foo.yml"
-    }
-  },
-  "accessibility": {
-    "high-contrast": true
-  },
-  "prompts": {
-    "__dwalk__": {
-      "accessibility": {
-        "src": "/Users/cariad/code/dwalk/example/foo.user.yml"
-      }
-    },
-    "accessibility": "user-enabled",
-    "notifications": "not-asked"
-  },
-  "requires": [
-    "gamepad"
-  ],
-  "theme": "sci-fi"
-}
+`dwalk` can be imported and used in Python scripts:
+
+```python
+from dwalk import dwalk
+from logging import basicConfig, getLogger
+
+# Log level defaults to INFO; override if you want.
+# basicConfig()
+# getLogger("dwalk").setLevel("DEBUG")
+
+merged = dwalk(
+    directory="../dwalk/testing/bottom",
+    filenames=["dwalk.2.yml", "dwalk.1.yml"],
+)
+
+print(merged)
+# {'favourite_colour': 'purple', 'is_top_2': True, 'side_count': {'hexagon': 6,
+# 'pentagon': 5, 'square': 4, 'triangle': 3}, 'alphabet': {'d': 'delta', 'c':
+# 'charlie', 'b': 'bravo', 'a': 'alpha'}, 'is_top_1': True, 'is_bottom_2': True,
+# 'shopping_list': ['atari', 'bismuth', 'cookies'], 'is_bottom_1': True}
 ```
 
 ## Directory precedence

@@ -1,6 +1,6 @@
 from logging import getLogger
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 
 from yaml import safe_load
 
@@ -8,9 +8,9 @@ from dwalk.directories import directories
 from dwalk.merge import merge
 
 
-def discover(
+def dwalk(
     filenames: List[str],
-    directory: Optional[Path] = None,
+    directory: Optional[Union[Path, str]] = None,
     include_meta: bool = False,
 ) -> Dict[Any, Any]:
     """
@@ -39,6 +39,9 @@ def discover(
     logger.debug("Directory: %s", directory)
 
     result: Dict[Any, Any] = {}
+
+    if isinstance(directory, str):
+        directory = Path(directory).resolve()
 
     for d in directories(bottom=directory):
         logger.debug("Examining directory: %s", d)

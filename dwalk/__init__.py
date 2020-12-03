@@ -1,3 +1,3 @@
-from dwalk.discover import discover
+from dwalk.dwalk import dwalk
 
-__all__ = ["discover"]
+__all__ = ["dwalk"]

@@ -4,7 +4,7 @@ from logging import basicConfig, getLogger
 from pathlib import Path
 from typing import List, Optional
 
-from dwalk.discover import discover
+from dwalk import dwalk
 from dwalk.version import get_version
 
 
@@ -51,7 +51,7 @@ class CLI:
         """
         try:
 
-            result = discover(
+            result = dwalk(
                 filenames=self.args.filenames,
                 directory=Path(self.args.directory) if self.args.directory else None,
                 include_meta=self.args.include_meta,
