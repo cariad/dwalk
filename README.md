@@ -13,7 +13,7 @@ pip3 install dwalk
 ## CLI usage
 
 ```bash
-dwalk --filenames FILENAME [FILENAME ...] [--directory DIRECTORY]
+dwalk --filenames FILENAME [FILENAME ...] [--directory DIRECTORY] [--include-meta]
 ```
 
 - `--directory VALUE`: Directory to walk to. The files in this directory will take priority over the files in its parent. Optional, and uses the current working directory by default.
@@ -58,37 +58,6 @@ dwalk --directory example --filenames foo.yml foo.user.yml
     "high-contrast": true
   },
   "prompts": {
-    "accessibility": "user-enabled",
-    "notifications": "not-asked"
-  },
-  "theme": "pink"
-}
-```
-
-Pass the optional `--include-meta` flag to see where each value came from:
-
-```json
-{
-  "__dwalk__": {
-    "accessibility": {
-      "src": "/Users/cariad/code/dwalk/example/foo.user.yml"
-    },
-    "prompts": {
-      "src": "/Users/cariad/code/dwalk/example/foo.yml"
-    },
-    "theme": {
-      "src": "/Users/cariad/code/dwalk/example/foo.user.yml"
-    }
-  },
-  "accessibility": {
-    "high-contrast": true
-  },
-  "prompts": {
-    "__dwalk__": {
-      "accessibility": {
-        "src": "/Users/cariad/code/dwalk/example/foo.user.yml"
-      }
-    },
     "accessibility": "user-enabled",
     "notifications": "not-asked"
   },
@@ -150,6 +119,48 @@ dwalk --directory example/game --filenames foo.yml foo.user.yml
 }
 ```
 
+## Metadata
+
+Metdata can be included in the result by adding the `--include-meta` flag.
+
+This will add `__dwalk__` keys that describe:
+- The `src` file whenever a property is merged in.
+- The `most_specific_src` that properties were merged in from.
+
+For example:
+
+```json
+{
+  "__dwalk__": {
+    "__dwalk__": {
+        "most_specific_src": "/Users/cariad/code/dwalk/example/foo.user.yml"
+    },
+    "accessibility": {
+      "src": "/Users/cariad/code/dwalk/example/foo.user.yml"
+    },
+    "prompts": {
+      "src": "/Users/cariad/code/dwalk/example/foo.yml"
+    },
+    "theme": {
+      "src": "/Users/cariad/code/dwalk/example/foo.user.yml"
+    }
+  },
+  "accessibility": {
+    "high-contrast": true
+  },
+  "prompts": {
+    "__dwalk__": {
+      "accessibility": {
+        "src": "/Users/cariad/code/dwalk/example/foo.user.yml"
+      }
+    },
+    "accessibility": "user-enabled",
+    "notifications": "not-asked"
+  },
+  "theme": "pink"
+}
+```
+
 ## Package
 
 `dwalk` can be imported and used in Python scripts:
@@ -165,6 +176,7 @@ from logging import basicConfig, getLogger
 merged = dwalk(
     directory="../dwalk/testing/bottom",
     filenames=["dwalk.2.yml", "dwalk.1.yml"],
+    include_meta=False,
 )
 
 print(merged)

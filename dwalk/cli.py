@@ -31,8 +31,16 @@ class CLI:
             action="store_true",
             help="print the version",
         )
-        self.arg_parser.add_argument("--filenames", nargs="+")
-        self.arg_parser.add_argument("--directory")
+        self.arg_parser.add_argument(
+            "--filenames",
+            nargs="+",
+            help="Files to load in each directory. List from low- to high-precedence.",
+        )
+        self.arg_parser.add_argument(
+            "--directory",
+            required=False,
+            help="Highest-precedence directory. Defaults to working directory.",
+        )
         self.arg_parser.add_argument(
             "--include-meta",
             action="store_true",
@@ -50,7 +58,6 @@ class CLI:
             int: Shell return code.
         """
         try:
-
             result = dwalk(
                 filenames=self.args.filenames,
                 directory=Path(self.args.directory) if self.args.directory else None,

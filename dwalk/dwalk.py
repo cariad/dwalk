@@ -5,7 +5,7 @@ from typing import Any, Dict, List, Optional, Union
 from yaml import safe_load
 
 from dwalk.directories import directories
-from dwalk.merge import merge
+from dwalk.merge import merge, set_key
 
 
 def dwalk(
@@ -43,6 +43,8 @@ def dwalk(
     if isinstance(directory, str):
         directory = Path(directory).resolve()
 
+    most_specific: Optional[Path] = None
+
     for d in directories(bottom=directory):
         logger.debug("Examining directory: %s", d)
 
@@ -57,10 +59,19 @@ def dwalk(
                         from_src=str(path) if include_meta else None,
                         to_dict=result,
                     )
+                    if include_meta:
+                        most_specific = path
             except FileNotFoundError:
                 logger.debug("File does not exist: %s", path)
                 pass
             except Exception as ex:
                 logger.error("Failed to read file: %s (%s)", path, ex)
+
+    if include_meta:
+        set_key(
+            to_dict=result,
+            path=["__dwalk__", "__dwalk__", "most_specific_src"],
+            value=str(most_specific),
+        )
 
     return result

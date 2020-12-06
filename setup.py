@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from setuptools import find_packages, setup
+from setuptools import setup
 
 from dwalk.version import get_version
 
@@ -51,7 +51,10 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     name="dwalk",
-    packages=find_packages(),
+    packages=["dwalk"],
+    package_data={
+        "dwalk": ["py.typed"],
+    },
     python_requires=">=3.8",
     url="https://github.com/cariad/dwalk",
     version=version,

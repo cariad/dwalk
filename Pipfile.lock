@@ -18,18 +18,18 @@
     "default": {
         "boto3": {
             "hashes": [
-                "sha256:7f44988fc605fa264046d7d16f773836ac1e8b3f6721b79ba796b875bbf9ea75",
-                "sha256:ca62b4517ddb6a81a9b0113cca05b2dba5faab14d2b35b81f402b052955738c5"
+                "sha256:163ab6f9030ade265af9b36a10e608f12911cb5f3557e8e3390dffeba919262e",
+                "sha256:848aa8d11c9927daa13512072a501e2fc70ba86b073fc6927b86466f4a459b4d"
             ],
             "index": "pypi",
-            "version": "==1.16.28"
+            "version": "==1.16.30"
         },
         "botocore": {
             "hashes": [
-                "sha256:97741448e63850895818193c29b93ec6319135587ae4994a6f611ffccb1a978e",
-                "sha256:d8dab9b74dc0ad2e5439e5ea3c119e234d2f02952f37f379d9a74adfa305ed75"
+                "sha256:70a8ec8d76096927b619a2f1f0dffe326fc9a4f9224afc6cf5d7ef2fd98a94a2",
+                "sha256:822f9dd11f11c54b9c4666cfec9b7246a32990dbca1be27528a75a8dabed4dc2"
             ],
-            "version": "==1.19.28"
+            "version": "==1.19.30"
         },
         "jmespath": {
             "hashes": [
@@ -115,11 +115,11 @@
         },
         "boto3-stubs": {
             "hashes": [
-                "sha256:40e6e2cbf5e456658cf4d01cf54a18e578e05b92f64038fbae7862515d1e7aa7",
-                "sha256:d4ab78a2b13a4511c024a1e31f828f6b1197c62c1a20c6c8121ee8154b5c9241"
+                "sha256:346dd4152a64bc9c62c7367dfcbb50fe397e14956c716ff18c38cd414e7fd245",
+                "sha256:83ba635d4daf468dbc76405c6d5b4c3205c8cfca0b0337ec5e59216c7e7f1f2f"
             ],
             "index": "pypi",
-            "version": "==1.16.28.0"
+            "version": "==1.16.30.0"
         },
         "click": {
             "hashes": [
@@ -415,11 +415,11 @@
         },
         "wheel": {
             "hashes": [
-                "sha256:645f81da70dcd993844005762acbb7e8628306bec414c90539d276fbd4fc7cbe",
-                "sha256:e17f05e14282d0e666327f800ef43123b40f3dbc13a86193b604f2ebfae0dabc"
+                "sha256:906864fb722c0ab5f2f9c35b2c65e3af3c009402c108a709c0aca27bc2c9187b",
+                "sha256:aaef9b8c36db72f8bf7f1e54f85f875c4d466819940863ca0b3f3f77f0a1646f"
             ],
             "index": "pypi",
-            "version": "==0.36.0"
+            "version": "==0.36.1"
         },
         "yamllint": {
             "hashes": [
