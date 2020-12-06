@@ -5,7 +5,6 @@ verify_ssl = true
 
 [dev-packages]
 black = "==20.8b1"
-boto3-stubs = "*"
 coverage = "*"
 flake8 = "*"
 isort = "*"
@@ -17,8 +16,7 @@ wheel = "*"
 yamllint = "*"
 
 [packages]
-boto3 = "*"
-pyyaml = "*"
+"ruamel.yaml" = "~=0.16"
 
 [requires]
 python_version = "3.9"
