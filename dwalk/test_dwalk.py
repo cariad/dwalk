@@ -22,6 +22,7 @@ def test() -> None:
         "is_top_2": True,
         "shopping_list": ["atari", "bismuth", "cookies"],
         "side_count": {"hexagon": 6, "pentagon": 5, "square": 4, "triangle": 3},
+        ("a", "b"): "alpha-bravo",
     }
 
 

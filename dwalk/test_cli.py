@@ -1,6 +1,7 @@
 from pathlib import Path
 
-from mock import Mock, patch
+from mock import ANY, Mock, patch
+from ruamel.yaml import YAML
 
 from dwalk.cli import CLI
 
@@ -28,8 +29,8 @@ def test_print_version() -> None:
     assert CLI().print_version() == 0
 
 
-@patch("builtins.print")
-def test_execute(print: Mock) -> None:
+@patch("dwalk.cli.YAML.dump")
+def test_execute(dump: Mock) -> None:
     testing = Path(__file__).parent.parent.joinpath("testing").absolute()
     bottom = testing.joinpath("bottom")
     cli = CLI(
@@ -37,12 +38,14 @@ def test_execute(print: Mock) -> None:
             "--directory",
             str(bottom),
             "--filenames",
+            "dwalk.3.yml",
             "dwalk.2.yml",
             "dwalk.1.yml",
         ],
     )
     assert cli.invoke() == 0
 
-    with open(testing.joinpath("expect.txt"), "r") as stream:
-        expect = stream.read().rstrip()
-    print.assert_called_with(expect)
+    with open(testing.joinpath("expect.yml"), "r") as stream:
+        expect = YAML(typ="safe").load(stream)
+
+    dump.assert_called_with(expect, ANY)

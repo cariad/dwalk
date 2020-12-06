@@ -2,7 +2,7 @@ from logging import getLogger
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
-from yaml import safe_load
+from ruamel.yaml import YAML
 
 from dwalk.directories import directories
 from dwalk.merge import merge, set_key
@@ -55,7 +55,7 @@ def dwalk(
                 with open(path, "r") as stream:
                     logger.debug("Reading and merging: %s", path)
                     merge(
-                        from_dict=safe_load(stream),
+                        from_dict=YAML(typ="safe").load(stream),
                         from_src=str(path) if include_meta else None,
                         to_dict=result,
                     )

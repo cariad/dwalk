@@ -1,8 +1,10 @@
 from argparse import ArgumentParser
-from json import dumps
 from logging import basicConfig, getLogger
 from pathlib import Path
+from sys import stdout
 from typing import List, Optional
+
+from ruamel.yaml import YAML
 
 from dwalk import dwalk
 from dwalk.version import get_version
@@ -63,7 +65,9 @@ class CLI:
                 directory=Path(self.args.directory) if self.args.directory else None,
                 include_meta=self.args.include_meta,
             )
-            print(dumps(result, sort_keys=True, indent=2))
+            yaml = YAML(typ="safe")
+            yaml.default_flow_style = False
+            yaml.dump(result, stdout)
             return 0
         except Exception as e:
             self.logger.exception(e)
