@@ -55,7 +55,7 @@ def dwalk(
                 with open(path, "r") as stream:
                     logger.debug("Reading and merging: %s", path)
                     merge(
-                        from_dict=YAML().load(stream),
+                        from_dict=YAML(typ="safe").load(stream),
                         from_src=str(path) if include_meta else None,
                         to_dict=result,
                     )
