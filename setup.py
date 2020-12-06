@@ -51,7 +51,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     name="dwalk",
-    packages="dwalk",
+    packages=["dwalk"],
     package_data={
         "dwalk": ["py.typed"],
     },

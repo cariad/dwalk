@@ -23,6 +23,7 @@ flake8 .
 echo "Checking Python types..."
 mypy dwalk
 
+echo "Testing..."
 coverage run
 coverage report -m
 
