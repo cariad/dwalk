@@ -15,9 +15,6 @@ jobs:
       - name: Sync dependencies
         run: pipenv sync --dev
 
-      - name: Lint
-        run: pipenv run ./lint.sh
-
       - name: Test
         run: pipenv run ./test.sh
 
