@@ -45,7 +45,7 @@ setup(
     },
     include_package_data=True,
     install_requires=[
-        "pyyaml",
+        "ruamel.yaml~=0.16",
     ],
     license="MIT License",
     long_description=long_description,
