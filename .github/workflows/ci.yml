@@ -63,8 +63,8 @@ jobs:
 
       - name: Assert
         run: |
-          dwalk --directory testing/bottom          \
-                --filenames dwalk.2.yml dwalk.1.yml > actual
+          dwalk --directory testing/bottom \
+                --filenames dwalk.3.yml dwalk.2.yml dwalk.1.yml > actual
           diff testing/expect.yml actual
 
   publish:
